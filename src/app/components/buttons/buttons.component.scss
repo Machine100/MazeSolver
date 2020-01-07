@@ -1,0 +1,12 @@
+.button-panel-wrapper{
+    display: grid;
+    border-style: solid;
+    border-color: yellow;
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 300px;
+}
+
+button {
+    border-color: lightcyan;
+    color: lightpink;
+}

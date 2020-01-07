@@ -1,0 +1,57 @@
+.grid-wrapper{
+    display: grid;
+    grid-template-columns: repeat(20, 15px);
+    grid-template-rows: repeat(20, 15px);
+    border-style: solid;
+    border-color: lightcyan;
+    max-width: 300px;
+}
+
+
+.grid-item{
+    border-color: grey;
+}
+
+.r{ 
+    border-color: grey;
+    border-right-style:solid; 
+}
+.l{ 
+    border-color: grey;
+    border-left-style:solid; 
+}
+.u{ border-color: grey;
+    border-top-style:solid; 
+}
+.d{ border-color: grey;
+    border-bottom-style:solid;
+}
+.blocked {
+    background-color: darkgray;
+}
+.on-stack{
+    background-color: teal;
+}
+.visited{ 
+     background-color: lightgoldenrodyellow; 
+ }
+.discovered{ 
+     background-color: purple; 
+ }
+.explored{ 
+     background-color: cyan;
+ }
+.shortest-path{
+    background-color: yellowgreen;
+}
+.start-cell {
+    background-color: lightgreen;
+}
+.finish-cell {
+    background-color: lightpink;
+}
+.has-cursor { 
+    background-color: orange;
+}
+
+.none{ border-style: none; }
