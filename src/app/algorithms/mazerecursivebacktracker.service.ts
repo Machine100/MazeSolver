@@ -1,4 +1,4 @@
-import { Injectable, RootRenderer } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { DisplaycontrolService } from 'src/app/displaycontrol.service';
 import { resolve, delay } from 'q';
 
