@@ -11,8 +11,8 @@ import { MazerecursivebacktrackerService } from 'src/app/algorithms/mazerecursiv
 export class ButtonsComponent implements OnInit {
 
   constructor(
-    private displayControl:DisplaycontrolService,
-    private breadthfirst:BreadthfirstService,
+    private displayControl: DisplaycontrolService,
+    private breadthfirst: BreadthfirstService,
     private mazeRecursiveBacktracker: MazerecursivebacktrackerService) {}
 
   ngOnInit() {
@@ -21,8 +21,8 @@ export class ButtonsComponent implements OnInit {
 
   onInit() {
     this.displayControl.initBoard()
-    this.displayControl.markStart(2,2)
-    this.displayControl.markFinish(17,17)
+    this.displayControl.markStart(2, 2)
+    this.displayControl.markFinish(17, 17)
     this.displayControl.redrawBoard()
   }
 
@@ -31,7 +31,7 @@ export class ButtonsComponent implements OnInit {
     this.breadthfirst.runAlgo()
   }
 
-  onStartMazeRecursiveBacktracker () {
+  onStartMazeRecursiveBacktracker() {
     this.mazeRecursiveBacktracker.onInitStack()
     this.mazeRecursiveBacktracker.onFireoffAlgo()
   }

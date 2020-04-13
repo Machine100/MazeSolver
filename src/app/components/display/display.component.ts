@@ -8,14 +8,14 @@ import { DisplaycontrolService } from 'src/app/displaycontrol.service';
 })
 export class DisplayComponent implements OnInit {
 
-  constructor(private displayControl:DisplaycontrolService) { }
+  constructor(private displayControl: DisplaycontrolService) { }
 
   ngOnInit() {
   }
 
-  onClick(id:string) {
+  onClick(id: string) {
     console.log('click at ', id)
-    let idRowCol:number[] = this.displayControl.getRowColumn(id)
-    this.displayControl.markBlocked(idRowCol[0],idRowCol[1])
+    const idRowCol: number[] = this.displayControl.getRowColumn(id)
+    this.displayControl.markBlocked(idRowCol[0], idRowCol[1])
   }
 }
