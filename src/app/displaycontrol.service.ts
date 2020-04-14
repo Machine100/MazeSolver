@@ -14,7 +14,7 @@ export class DisplaycontrolService {
   cursorColumn: number
   board: Cell[][]                                     // a 2D array of objects representing each space on the maze
 
-  getId(row: number, column: number): string {          // returns an id given a row/column 
+  getId(row: number, column: number): string {        // returns an id given a row/column 
     return row.toString() + '_' + column.toString()
   }
 
