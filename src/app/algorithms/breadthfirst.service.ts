@@ -23,11 +23,12 @@ export class BreadthfirstService {
     this.stackPointer = 0
     this.displayControl.cursorRow = this.displayControl.startRow
     this.displayControl.cursorColumn = this.displayControl.startColumn
-    // markings for the initial node:
-      this.traversalStack[0] = this.displayControl.getId(this.displayControl.startRow,this.displayControl.startColumn)  //push start onto traversalstack                            // set first entry in traversalStack to start position
-      this.sourceStack[0] = 'end'                                                                       // push ___ onto sourcestack for start location
-      this.displayControl.markDiscovered(this.displayControl.startRow,this.displayControl.startColumn)  // mark start as discovered
-      this.displayControl.markExplored(this.displayControl.startRow,this.displayControl.startColumn)    // mark start as explored
+    // markings for the initial node begin:
+    this.traversalStack[0] = this.displayControl.getId(this.displayControl.startRow,this.displayControl.startColumn) // set first entry in traversalStack to start position
+    this.sourceStack[0] = 'end'                                                                       // push ___ onto sourcestack for start location
+    this.displayControl.markDiscovered(this.displayControl.startRow,this.displayControl.startColumn)  // mark start as discovered
+    this.displayControl.markExplored(this.displayControl.startRow,this.displayControl.startColumn)    // mark start as explored
+    // markings for the initial node end
   }
 
   private _delayTimer () {
@@ -35,18 +36,18 @@ export class BreadthfirstService {
       setTimeout( () => {
         console.log('delayTimer Resolved')
         resolve()
-      },30)                                      // set to 25 for production
+      }, 30)                                     // set to 25 for production
     })
   }
 
   async runAlgo() {
-    while(!this.algoFinished) {
+    while (!this.algoFinished) {
       this.stepAlgo()
       await this._delayTimer()
       // console.log ('traversalStack:', this.traversalStack)
       // console.log ('sourceStack:', this.sourceStack)
     }
-    this.findShortestPath('2_2')    // this static value for testing. Eventually make it moveable.
+    this.findShortestPath('2_2')                // this static value for testing. Eventually make it moveable.
     this.markShortestPath()
   }
 
@@ -68,114 +69,86 @@ export class BreadthfirstService {
   }
 
   exploreNeighbors() {
-    console.log ('cursor at:', this.displayControl.cursorRow,this.displayControl.cursorColumn)
-    this._processDown()                         // validate each direction
-    this._processRight()
+    console.log ('cursor at:', this.displayControl.cursorRow, this.displayControl.cursorColumn)
+    this._processDown()                         // these look for new discoveries
+    this._processRight()                        // in each direction
     this._processUp()
     this._processLeft()
     this.displayControl.markExplored(this.displayControl.cursorRow,this.displayControl.cursorColumn)
   }
 
   private _processDown() {
-    if (this.displayControl.cursorRow === 19) { console.log ('down rejected'); return } // check for board boundary
+    if (this.displayControl.cursorRow === 19) { return } // check for board boundary
     let validMove = true
     const destinationRow = this.displayControl.cursorRow + 1
     const destinationColumn = this.displayControl.cursorColumn
-    const destinationId: string = this.displayControl.getId(destinationRow,destinationColumn)
+    const destinationId: string = this.displayControl.getId(destinationRow, destinationColumn)
     const cursorId: string = this.displayControl.getId(this.displayControl.cursorRow, this.displayControl.cursorColumn)
-    if (this.displayControl.board[destinationRow][destinationColumn].blocked) { console.log ('down rejected for block'); return } //check for blocked node
-
-    if ( this.displayControl.board[this.displayControl.cursorRow][this.displayControl.cursorColumn].wallDown ) {
-      console.log('rejected for wall')
-      return
-    }
-
-    console.log('for down, checing destination:',destinationRow,destinationColumn)
+    if (this.displayControl.board[destinationRow][destinationColumn].blocked) { return } // check for blocked node
+    if ( this.displayControl.board[this.displayControl.cursorRow][this.displayControl.cursorColumn].wallDown ) { return }
     const cell = this.displayControl.board[destinationRow][destinationColumn]
-    if (cell.discovered === true) { validMove = false }   // check if destination node is already discovered
-    if (validMove) {                                      // if not, discover it.
+    if (cell.discovered === true) { validMove = false }      // check if destination node is already discovered
+    if (validMove) {                                         // if not, discover it.
       this.displayControl.markDiscovered(destinationRow, destinationColumn)
       this.traversalStack.push(destinationId)
       this.sourceStack.push(cursorId)
-     // this.displayControl.markSource(destinationRow, destinationColumn)
     }
     return
   }
 
   private _processRight() {
-    if (this.displayControl.cursorColumn === 19) { console.log ('right rejected'); return } // check for board boundary
+    if (this.displayControl.cursorColumn === 19) { return }   // check for board boundary
     let validMove = true
     const destinationRow = this.displayControl.cursorRow
     const destinationColumn = this.displayControl.cursorColumn + 1
-    const destinationId: string = this.displayControl.getId(destinationRow,destinationColumn)
+    const destinationId: string = this.displayControl.getId(destinationRow, destinationColumn)
     const cursorId: string = this.displayControl.getId(this.displayControl.cursorRow, this.displayControl.cursorColumn)
-    if (this.displayControl.board[destinationRow][destinationColumn].blocked) { console.log ('down rejected for block'); return } //check for blocked node
-
-    if (this.displayControl.board[this.displayControl.cursorRow][this.displayControl.cursorColumn].wallRight ) {
-      console.log('rejected for wall')
-      return
-    }
-
-    console.log('for Right, checing destination:',destinationRow,destinationColumn)
+    if (this.displayControl.board[destinationRow][destinationColumn].blocked) { return } // check for blocked node
+    if (this.displayControl.board[this.displayControl.cursorRow][this.displayControl.cursorColumn].wallRight ) { return }
     const cell = this.displayControl.board[destinationRow][destinationColumn]
-    if (cell.discovered === true) { validMove = false }   // check if destination node already discovered
-    if (validMove) {                                      // if not, discover it
+    if (cell.discovered === true) { validMove = false }      // check if destination node already discovered
+    if (validMove) {                                         // if not, discover it
       this.displayControl.markDiscovered(destinationRow, destinationColumn)
       this.traversalStack.push(destinationId)
       this.sourceStack.push(cursorId)
-      // this.displayControl.markSource(destinationRow, destinationColumn)
     }
     return
   }
 
-  private _processUp() {                                                             // these look for new discoveries
-    if (this.displayControl.cursorRow === 0) { console.log ('up rejected'); return } // check for board boundary
+  private _processUp() {
+    if (this.displayControl.cursorRow === 0) { return }      // check for board boundary
     let validMove = true
     const destinationRow = this.displayControl.cursorRow - 1
     const destinationColumn = this.displayControl.cursorColumn
-    const destinationId: string = this.displayControl.getId(destinationRow,destinationColumn)
+    const destinationId: string = this.displayControl.getId(destinationRow, destinationColumn)
     const cursorId: string = this.displayControl.getId(this.displayControl.cursorRow, this.displayControl.cursorColumn)
-    if (this.displayControl.board[destinationRow][destinationColumn].blocked) { console.log ('down rejected for block'); return } //check for blocked node
-
-    if (this.displayControl.board[this.displayControl.cursorRow][this.displayControl.cursorColumn].wallUp) {
-      console.log('rejected for wall')                   // these sections added to enable solving of maze.
-      return
-    }
-
-    console.log('for up, checing destination:', destinationRow, destinationColumn)
+    if (this.displayControl.board[destinationRow][destinationColumn].blocked) { return } // check for blocked node
+    if (this.displayControl.board[this.displayControl.cursorRow][this.displayControl.cursorColumn].wallUp) { return }
     const cell = this.displayControl.board[destinationRow][destinationColumn]
-    if (cell.discovered === true) { validMove = false }
-    if (validMove) {
+    if (cell.discovered === true) { validMove = false }      // check if destination node already discovered
+    if (validMove) {                                         // if not, discover it
       this.displayControl.markDiscovered(destinationRow, destinationColumn)
       this.traversalStack.push(destinationId)
       this.sourceStack.push(cursorId)
-      // this.displayControl.markSource(destinationRow, destinationColumn)
     }
     return
   }
 
   private _processLeft() {
-    if (this.displayControl.cursorColumn === 0) { console.log ('left rejected'); return } // check for board boundary
+    if (this.displayControl.cursorColumn === 0) { return }   // check for board boundary
     let validMove = true
     const destinationRow = this.displayControl.cursorRow
     const destinationColumn = this.displayControl.cursorColumn - 1
     const destinationId: string = this.displayControl.getId(destinationRow, destinationColumn)
     const cursorId: string = this.displayControl.getId(this.displayControl.cursorRow, this.displayControl.cursorColumn)
-    if (this.displayControl.board[destinationRow][destinationColumn].blocked) { console.log ('down rejected for block'); return } //check for blocked node
-
-    if (this.displayControl.board[this.displayControl.cursorRow][this.displayControl.cursorColumn].wallLeft ) {
-      console.log('rejected for wall')
-      return
-    }
-
-    console.log('for left, checing destination:',destinationRow,destinationColumn)
+    if (this.displayControl.board[destinationRow][destinationColumn].blocked) { return }
+    if (this.displayControl.board[this.displayControl.cursorRow][this.displayControl.cursorColumn].wallLeft ) { return }
     const cell = this.displayControl.board[destinationRow][destinationColumn]
-    if (cell.discovered === true) { validMove = false }      // check if id is already discovered
-    if (validMove) {
+    if (cell.discovered === true) { validMove = false }      // check if destination node already discovered
+    if (validMove) {                                         // if not, discover it
       this.displayControl.markDiscovered(destinationRow, destinationColumn)
       this.traversalStack.push(destinationId)
       this.sourceStack.push(cursorId)
-      // this.displayControl.markSource(destinationRow, destinationColumn)
     }
     return
   }
@@ -186,7 +159,7 @@ export class BreadthfirstService {
     const failSafe = 0
     let keepgoing = true
     while (keepgoing) {                                      // starting at fromCell, find it's discoverer, push that into array, change next to current, 
-      const discoverer: string = this._findDiscoverer(cursor)   // find discoverer of cell under cursor
+      const discoverer: string = this._findDiscoverer(cursor)// find discoverer of cell under cursor
       console.log('cursor:', cursor,' discoverer: ', discoverer )
       this.shortestPath.push(discoverer)                     // push that discoverer into sp array
       if (discoverer === 'end') { console.log('ending'); keepgoing = false; break }

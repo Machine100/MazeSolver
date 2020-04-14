@@ -29,8 +29,8 @@ export class DisplaycontrolService {
   initBoard() {
     this.cursorRow = 0
     this.cursorColumn = 0
-    let row: number = 0
-    let column: number = 0
+    let row = 0
+    let column = 0
     this.board = [ [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[] ]
     for (row = 0; row < 20; row++) {
       for (column = 0; column < 20; column++) {
@@ -143,7 +143,6 @@ export class DisplaycontrolService {
     this.board[row][column].discovered = true             // update display state
     const id: string = this.getId(row, column)
     document.getElementById(id).classList.add('discovered')
-    // this.redrawBoard()
   }
 
   markExplored(row: number, column: number) {
