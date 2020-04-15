@@ -14,7 +14,7 @@ export class DisplaycontrolService {
   cursorColumn: number
   board: Cell[][]                                     // a 2D array of objects representing each space on the maze
 
-  getId(row: number, column: number): string {        // returns an id given a row/column 
+  getId(row: number, column: number): string {        // returns an id given a row/column
     return row.toString() + '_' + column.toString()
   }
 
@@ -23,7 +23,7 @@ export class DisplaycontrolService {
     const location: number[] = []
     location[0] = Number(result[0])
     location[1] = Number(result[1])
-    return location                                   // return the row and column
+    return location
   }
 
   initBoard() {
@@ -118,62 +118,62 @@ export class DisplaycontrolService {
 
   markStart(row: number, column: number) {
     const id: string = this.getId(row, column)
-    this.board[row][column].startCell = true                // update display state
-    this.startRow = row                                     // update state store
+    this.board[row][column].startCell = true                // update board state
+    this.startRow = row
     this.startColumn = column
     this.redrawBoard()
   }
 
   markFinish(row: number, column: number) {
     const id: string = this.getId(row, column)
-    this.board[row][column].finishCell = true               // update display state
-    this.startRow = row                                     // update state store
+    this.board[row][column].finishCell = true               // update board state
+    this.startRow = row
     this.startColumn = column
     this.redrawBoard()
   }
 
   markVisited(row: number, column: number) {
-    this.board[this.cursorRow][this.cursorColumn].visited = true
+    this.board[this.cursorRow][this.cursorColumn].visited = true  // update board state
     const id: string = this.getId(row, column)
-    document.getElementById(id).classList.add('visited')
+    document.getElementById(id).classList.add('visited')     // directly draw state change to view
   }
 
   markDiscovered(row: number, column: number) {
     console.log('at markDiscovered', row, column)
-    this.board[row][column].discovered = true             // update display state
+    this.board[row][column].discovered = true                 // update board state
     const id: string = this.getId(row, column)
-    document.getElementById(id).classList.add('discovered')
+    document.getElementById(id).classList.add('discovered')   // directly draw state change to view
   }
 
   markExplored(row: number, column: number) {
-     this.board[row][column].explored = true               // update display state
+     this.board[row][column].explored = true                   // update board state
      const id: string = this.getId(row, column)
-     document.getElementById(id).classList.add('explored')
+     document.getElementById(id).classList.add('explored')     // directly draw state change to view
   }
 
   markOffStack(row: number, column: number) {
-     this.board[row][column].onStack = false               // update display state
+     this.board[row][column].onStack = false                   // update board state
      const id: string = this.getId(row, column)
-     document.getElementById(id).classList.remove('on-stack')
+     document.getElementById(id).classList.remove('on-stack')  // directly draw state change to view
   }
 
   markOnStack(row: number, column: number) {
-     this.board[row][column].onStack = true                // update display state
+     this.board[row][column].onStack = true                    // update board state
      const id: string = this.getId(row, column)
-     // document.getElementById(id).classList.add('on-stack')
+     // document.getElementById(id).classList.add('on-stack')  // directly draw state change to view
      this.redrawBoard()
   }
 
   markBlocked(row: number, column: number) {
-     this.board[row][column].blocked = true                 // update display state
+     this.board[row][column].blocked = true                     // update board state
      let id: string = this.getId(row, column)
-     document.getElementById(id).classList.add('blocked')
+     document.getElementById(id).classList.add('blocked')       // directly draw state change to view
   }
 
   markShortestPath(row: number, column: number) {
-    this.board[row][column].shortestPath = true            // update display state
+    this.board[row][column].shortestPath = true                 // update board state
     let id: string = this.getId(row, column)
-    document.getElementById(id).classList.add('shortest-path')
+    document.getElementById(id).classList.add('shortest-path')  // directly draw state change to view
   }
 
   moveCursor(destinationRow: number, destinationColumn: number) {
