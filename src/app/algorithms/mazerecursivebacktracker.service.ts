@@ -31,7 +31,7 @@ export class MazerecursivebacktrackerService {
     while (!this.algoFinished) {              // step algo until maze generation is complete
       await this._stepAlgo()                  // must use async/await to ensure statements from the while loop execute in proper order
       await this._delayTimer()
-      console.log('---single algo step complete---', 'algofinished:', this.algoFinished)
+      console.log('---single algo step complete---')
     }
   }
 
@@ -44,14 +44,14 @@ export class MazerecursivebacktrackerService {
         this._backTrack()
         await this._delayTimer()
       }
-      if (this.algoFinished) { console.log('WasMarked'); break }    // maze is complete. Was marked as so by _backtrack()
+      if (this.algoFinished) { break }        // maze is complete. Was marked as so by _backtrack()
     }
-    if (this.algoFinished) { console.log('returning from _stepAlgo()'); return }
+    if (this.algoFinished) { return }
     const destinationLocation: number[] = this._getDestinationLocation(chosenDirection)
     this.displayControl.knockoutWalls(chosenDirection)
     this.displayControl.moveCursor(destinationLocation[0], destinationLocation[1])
     cursorId = this.displayControl.cursorRow.toString() + '_' + this.displayControl.cursorColumn.toString();
-    this.stack.push(cursorId)                                               // push destination onto stack
+    this.stack.push(cursorId)                 // push destination onto stack
     this.displayControl.markOnStack(this.displayControl.cursorRow, this.displayControl.cursorColumn)
   }
 
@@ -133,7 +133,6 @@ export class MazerecursivebacktrackerService {
   }
 
   private async _backTrack() {
-    console.log ('at _backTrack')
     await this._delayTimer()
     this.displayControl.markVisited(this.displayControl.cursorRow, this.displayControl.cursorColumn)
     const poppedLocation: number[] = this._popStack()
@@ -144,8 +143,6 @@ export class MazerecursivebacktrackerService {
   private _popStack() {
     const poppedId: string = this.stack.pop()
     const poppedLocation: number[] = this.displayControl.getRowColumn(poppedId)
-    // this.displayControl.board[poppedRowColumn[0]][poppedRowColumn[1]].onStack = false            // update display state
-    // document.getElementById(poppedId).classList.remove('on-stack')                               // update display element
     this.displayControl.markOffStack(poppedLocation[0], poppedLocation[1])
     return poppedLocation
   }
@@ -153,7 +150,6 @@ export class MazerecursivebacktrackerService {
   pushStack(id: string) {
     this.stack.push(id)
     const poppedRowColumn: number[] = this.displayControl.getRowColumn(id)
-    // this.displayControl.board[poppedRowColumn[0]][poppedRowColumn[1]].onStack = true              // update display state
     this.displayControl.markOnStack(poppedRowColumn[0], poppedRowColumn[1])
   }
 

@@ -139,7 +139,6 @@ export class DisplaycontrolService {
   }
 
   markDiscovered(row: number, column: number) {
-    console.log('at markDiscovered', row, column)
     this.board[row][column].discovered = true                 // update board state
     const id: string = this.getId(row, column)
     document.getElementById(id).classList.add('discovered')   // directly draw state change to view
@@ -166,18 +165,18 @@ export class DisplaycontrolService {
 
   markBlocked(row: number, column: number) {
      this.board[row][column].blocked = true                     // update board state
-     let id: string = this.getId(row, column)
+     const id: string = this.getId(row, column)
      document.getElementById(id).classList.add('blocked')       // directly draw state change to view
   }
 
   markShortestPath(row: number, column: number) {
     this.board[row][column].shortestPath = true                 // update board state
-    let id: string = this.getId(row, column)
+    const id: string = this.getId(row, column)
     document.getElementById(id).classList.add('shortest-path')  // directly draw state change to view
   }
 
   moveCursor(destinationRow: number, destinationColumn: number) {
-    this.board[this.cursorRow][this.cursorColumn].hasCursor = false        // update view state and 
+    this.board[this.cursorRow][this.cursorColumn].hasCursor = false        // update view state and
     let cursorId: string = this.getId(this.cursorRow, this.cursorColumn)   // update view CSS
     document.getElementById(cursorId).classList.remove('has-cursor')       // to remove previous cursor location
     this.cursorColumn = destinationColumn                                  // change the cursor location
@@ -189,27 +188,22 @@ export class DisplaycontrolService {
   }
 
   knockoutWalls(direction: string) {
-    console.log('at knockoutWalls', 'requesteddirection:', direction)
     switch (direction) {
       case 'down':
         this.board[this.cursorRow][this.cursorColumn].wallDown = false
         this.board[this.cursorRow + 1][this.cursorColumn].wallUp = false
-        console.log('broke walls down')
         break
       case 'right':
         this.board[this.cursorRow][this.cursorColumn].wallRight = false
         this.board[this.cursorRow][this.cursorColumn + 1].wallLeft = false
-        console.log('broke walls right')
         break
       case 'up':
         this.board[this.cursorRow][this.cursorColumn].wallUp = false
         this.board[this.cursorRow - 1][this.cursorColumn].wallDown = false
-        console.log('broke walls up')
         break
       case 'left':
         this.board[this.cursorRow][this.cursorColumn].wallLeft = false
         this.board[this.cursorRow][this.cursorColumn - 1].wallRight = false
-        console.log('broke walls left')
       }
   }
 }
