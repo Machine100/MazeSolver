@@ -1,20 +1,23 @@
 .button-panel-wrapper{
     display: grid;
     border-style: solid;
-    border-color: yellow;
+    border-color: #ffe81f;
     grid-template-columns: 1fr 1fr 1fr;
     max-width: 300px;
 }
 
 #generate-button {
+    background-color: black;
     border-color: lightcyan;
-    color: green;
+    color: #3ffd1c;
 }
 #solve-button {
+    background-color: black;
     border-color: lightcyan;
-    color: green;
+    color: #3ffd1c;
 }
 #clear-button {
+    background-color: black;
     border-color: lightcyan;
-    color: green;
+    color: #3ffd1c;
 }

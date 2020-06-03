@@ -64,7 +64,7 @@ export class ButtonsComponent implements OnInit {
     this.displayControl.redrawBoard()
     this.generateButtonDepressed = false; this.mazeGenerated = false; this.mazeGenerating = false
     this.solveButtonDepressed = false; this.mazeSolved = false; this.mazeSolving = false
-    document.getElementById('generate-button').style.color = 'green'
-    document.getElementById('solve-button').style.color = 'green'
+    document.getElementById('generate-button').style.color = '#3ffd1c'
+    document.getElementById('solve-button').style.color = '#3ffd1c'
   }
 }
