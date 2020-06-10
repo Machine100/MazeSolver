@@ -1,16 +1,15 @@
 .grid-wrapper{
     display: grid;
-    grid-template-columns: repeat(128, 4px);
+    grid-template-columns: repeat(20, 15px);
+    grid-template-rows: repeat(20, 15px);
     border-style: solid;
     border-color: #ffe81f;
-    // max-width: 512px;
-    // min-width: 512px;
+    max-width: 300px;
+    min-width: 300px;
 }
 
 
 .grid-item{
-    min-width:4px;
-    min-height: 4px;
     border-color: grey;
 }
 

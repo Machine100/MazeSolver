@@ -31,29 +31,25 @@ export class DisplaycontrolService {
     this.cursorColumn = 0
     let row = 0
     let column = 0
-    this.board = [ [], [], [], [], [], [], [], [] ]
-    let rowId: number
-    let columnId: number               // temp place to apply *2 to 
-    for (row = 0; row < 8; row++) {
-      for (column = 0; column < 256; column++) {
-        rowId = row * 2
-        columnId = column *2
-        this.board[row][column] = {
-          id: row.toString() + '_' + column.toString(),
-          shortestPath: false,
-          visited: false,
-          discovered: false,
-          explored: false,
-          blocked: false,
-          onStack: false,
-          hasCursor: false,
-          startCell: false,
-          finishCell: false,
-          wallUp: true,
-          wallDown: true,
-          wallLeft: true,
-          wallRight: true
-        }
+    this.board = [ [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[] ]
+    for (row = 0; row < 20; row++) {
+      for (column = 0; column < 20; column++) {
+          this.board[row][column] = {
+            id: row.toString() + '_' + column.toString(),
+            shortestPath: false,
+            visited: false,
+            discovered: false,
+            explored: false,
+            blocked: false,
+            onStack: false,
+            hasCursor: false,
+            startCell: false,
+            finishCell: false,
+            wallUp: true,
+            wallDown: true,
+            wallLeft: true,
+            wallRight: true
+          }
       }
     }
     console.log('board:', this.board)
